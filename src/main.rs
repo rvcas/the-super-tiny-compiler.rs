@@ -1,3 +1,6 @@
+use std::env;
+use std::io::{stdin, stdout, Write};
+
 #[derive(Debug)]
 enum Token {
     Paren(char),
@@ -36,7 +39,11 @@ fn tokenizer(input: &str) -> Vec<Token> {
                 tokens.push(Token::Number(value));
             }
 
-            _ => panic!("I dont know what this character is: {}", ch),
+            _ => {
+                println!("I dont know what this character is: {}", ch);
+
+                break;
+            }
         }
     }
 
@@ -44,7 +51,48 @@ fn tokenizer(input: &str) -> Vec<Token> {
 }
 
 fn main() {
-    let tokens = tokenizer("(add 1 4)");
+    let args: Vec<String> = env::args().collect();
 
-    println!("{:?}", tokens);
+    match args.get(1) {
+        None => println!("Error: expected atleast one argument"),
+        Some(arg) => {
+            let mut s = String::new();
+            println!("{}", arg);
+
+            if arg == "repl" {
+                loop {
+                    print!("tiny> ");
+
+                    let _ = stdout().flush();
+
+                    stdin()
+                        .read_line(&mut s)
+                        .expect("Did not enter a correct string");
+
+                    if let Some('\n') = s.chars().next_back() {
+                        s.pop();
+                    }
+
+                    if let Some('\r') = s.chars().next_back() {
+                        s.pop();
+                    }
+
+                    if s == ":q" || s == ":quit" {
+                        s.clear();
+                        break;
+                    }
+
+                    let tokens = tokenizer(s.as_str());
+
+                    println!("Tokens: {:?}", tokens);
+
+                    s.clear();
+                }
+            } else {
+                let tokens = tokenizer(arg.as_str());
+
+                println!("Tokens: {:?}", tokens);
+            }
+        }
+    }
 }
