@@ -9,7 +9,7 @@ fn tokenizer(input: &str) -> Vec<Token> {
 
     let mut tokens: Vec<Token> = Vec::new();
 
-    let mut chars = input.chars();
+    let mut chars = input.chars().peekable();
 
     while let Some(ch) = chars.next() {
         match ch {
@@ -20,9 +20,15 @@ fn tokenizer(input: &str) -> Vec<Token> {
 
                 value.push(ch);
 
-                while let Some(sub) = chars.next() {
+                while let Some(sub) = chars.peek() {
                     match sub {
-                        '0'..='9' => value.push(sub),
+                        '0'..='9' => {
+                            if let Some(next) = chars.next() {
+                                value.push(next);
+                            } else {
+                                break;
+                            }
+                        }
                         _ => break,
                     }
                 }
