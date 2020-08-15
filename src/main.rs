@@ -57,11 +57,10 @@ fn main() {
         None => println!("Error: expected atleast one argument"),
         Some(arg) => {
             let mut s = String::new();
-            println!("{}", arg);
 
             if arg == "repl" {
                 loop {
-                    print!("tiny> ");
+                    print!("\u{001b}[31;1mtiny> \u{001b}[36m");
 
                     let _ = stdout().flush();
 
@@ -84,14 +83,14 @@ fn main() {
 
                     let tokens = tokenizer(s.as_str());
 
-                    println!("Tokens: {:?}", tokens);
+                    println!("\u{001b}[37;1mTokens: \u{001b}[35;1m{:?}", tokens);
 
                     s.clear();
                 }
             } else {
                 let tokens = tokenizer(arg.as_str());
 
-                println!("Tokens: {:?}", tokens);
+                println!("\u{001b}[37;1mTokens: \u{001b}[35;1m{:?}", tokens);
             }
         }
     }
