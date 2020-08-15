@@ -1,6 +1,7 @@
 use std::env;
 use std::io::{stdin, stdout, Write};
 
+mod parser;
 mod tokenizer;
 
 fn main() {
@@ -35,15 +36,19 @@ fn main() {
                     }
 
                     let tokens = tokenizer::from_str(s.as_str());
+                    let ast = parser::ast_from_tokens(&tokens);
 
                     println!("\u{001b}[37;1mTokens: \u{001b}[35;1m{:?}", tokens);
+                    println!("\u{001b}[37;1mAST: \u{001b}[35;1m{:?}", ast);
 
                     s.clear();
                 }
             } else {
                 let tokens = tokenizer::from_str(arg.as_str());
+                let ast = parser::ast_from_tokens(&tokens);
 
                 println!("\u{001b}[37;1mTokens: \u{001b}[35;1m{:?}", tokens);
+                println!("\u{001b}[37;1mAST: \u{001b}[35;1m{:?}", ast);
             }
         }
     }
