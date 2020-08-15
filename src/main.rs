@@ -34,11 +34,11 @@ fn tokenizer(input: &str) -> Vec<Token> {
         }
     }
 
-    println!("{:?}", tokens);
-
     return tokens;
 }
 
 fn main() {
-    tokenizer("(add 1 4)");
+    let tokens = tokenizer("(add 1 4)");
+
+    println!("{:?}", tokens);
 }
