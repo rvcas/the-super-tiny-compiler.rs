@@ -26,7 +26,7 @@ fn tokenizer(input: &str) -> Vec<Token> {
                             if let Some(next) = chars.next() {
                                 value.push(next);
                             } else {
-                                break;
+                                unreachable!()
                             }
                         }
                         _ => break,
