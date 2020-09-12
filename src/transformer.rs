@@ -11,7 +11,7 @@ pub enum CExpr {
 
 #[derive(Debug)]
 pub struct CProgram {
-    body: Vec<CExpr>,
+    pub body: Vec<CExpr>,
 }
 
 fn traverse_node(node: &Expr, parent: Option<&Expr>) -> CExpr {

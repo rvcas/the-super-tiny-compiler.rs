@@ -1,6 +1,7 @@
 use std::env;
 use std::io::{stdin, stdout, Write};
 
+mod code_generator;
 mod parser;
 mod tokenizer;
 mod transformer;
@@ -8,7 +9,7 @@ mod transformer;
 fn compile(source: &str) {
     let tokens = tokenizer::from_str(source);
 
-    println!("\u{001b}[37;1mTokens: \u{001b}[35;1m{:?}\n", tokens);
+    println!("\n\u{001b}[37;1mTokens: \u{001b}[35;1m{:?}\n", tokens);
 
     let ast = parser::ast_from_tokens(tokens);
 
@@ -16,7 +17,11 @@ fn compile(source: &str) {
 
     let c_ast = transformer::c_ast_from_program(ast);
 
-    println!("\u{001b}[37;1mC AST: \u{001b}[35;1m{:?}", c_ast);
+    println!("\u{001b}[37;1mC AST: \u{001b}[35;1m{:?}\n", c_ast);
+
+    let output = code_generator::c_ast_to_string(c_ast);
+
+    println!("\u{001b}[37;1mOutput: \u{001b}[35;1m{}\n", output);
 }
 
 fn start_repl() {
