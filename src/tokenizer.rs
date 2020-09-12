@@ -23,11 +23,9 @@ pub fn from_str(input: &str) -> Vec<Token> {
                 while let Some(sub) = chars.peek() {
                     match sub {
                         '0'..='9' => {
-                            if let Some(next) = chars.next() {
-                                value.push(next);
-                            } else {
-                                unreachable!()
-                            }
+                            let next = chars.next().unwrap();
+
+                            value.push(next);
                         }
                         _ => break,
                     }
@@ -41,15 +39,13 @@ pub fn from_str(input: &str) -> Vec<Token> {
                 while let Some(sub) = chars.peek() {
                     match sub {
                         '"' => {
-                            chars.next();
+                            let _ = chars.next();
                             break;
                         }
                         _ => {
-                            if let Some(next) = chars.next() {
-                                value.push(next);
-                            } else {
-                                unreachable!()
-                            }
+                            let next = chars.next().unwrap();
+
+                            value.push(next);
                         }
                     }
                 }
@@ -64,11 +60,9 @@ pub fn from_str(input: &str) -> Vec<Token> {
                 while let Some(sub) = chars.peek() {
                     match sub {
                         'a'..='z' => {
-                            if let Some(next) = chars.next() {
-                                value.push(next);
-                            } else {
-                                unreachable!()
-                            }
+                            let next = chars.next().unwrap();
+
+                            value.push(next);
                         }
                         _ => break,
                     }
