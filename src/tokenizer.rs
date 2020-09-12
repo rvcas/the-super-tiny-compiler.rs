@@ -80,3 +80,21 @@ pub fn from_str(input: &str) -> Vec<Token> {
 
     return tokens;
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::tokenizer;
+    use crate::tokenizer::Token;
+
+    #[test]
+    fn from_str() {
+        let tokens = tokenizer::from_str("(add 12 12)");
+
+        assert_eq!(tokens.len(), 5);
+        assert!(matches!(tokens[0], Token::Paren('(')));
+        assert!(matches!(&tokens[1], Token::Name(name) if name.eq(&String::from("add"))));
+        assert!(matches!(&tokens[2], Token::Number(number) if number.eq(&String::from("12"))));
+        assert!(matches!(&tokens[3], Token::Number(number) if number.eq(&String::from("12"))));
+        assert!(matches!(tokens[4], Token::Paren(')')));
+    }
+}

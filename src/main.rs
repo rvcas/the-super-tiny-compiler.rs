@@ -1,6 +1,8 @@
 use std::env;
 use std::io::{stdin, stdout, Write};
 
+extern crate matches;
+
 mod code_generator;
 mod parser;
 mod tokenizer;
