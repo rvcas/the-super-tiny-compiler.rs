@@ -59,3 +59,32 @@ pub fn ast_from_tokens(tks: Vec<Token>) -> Program {
 
     Program { body: body }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::parser;
+    use crate::parser::{Expr, Program};
+    use crate::tokenizer;
+
+    #[test]
+    fn ast_from_tokens() {
+        let tokens = tokenizer::from_str("(add 12 12)");
+        let ast = parser::ast_from_tokens(tokens);
+
+        assert!(matches!(
+            ast,
+            Program { body } if matches!(
+                &body[0],
+                Expr::CallExpression(name, params) if name.eq(&String::from("add"))
+                && matches!(
+                    &params[0],
+                    Expr::NumberLiteral(number) if number.eq(&String::from("12"))
+                )
+                && matches!(
+                    &params[1],
+                    Expr::NumberLiteral(number) if number.eq(&String::from("12"))
+                )
+            )
+        ));
+    }
+}
