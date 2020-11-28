@@ -2,4 +2,4 @@
 
 Checkout the [original](https://github.com/jamiebuilds/the-super-tiny-compiler)
 
-![Imagine of the REPL](https://github.com/10factory/the-super-tiny-compiler.rs/raw/master/img/screenshot.png)
+![Imagine of the REPL](https://github.com/rvcas/the-super-tiny-compiler.rs/raw/master/img/screenshot.png)
